@@ -1,5 +1,4 @@
 #include "fileworking.h"
-#include <iostream>
 
 char** readFile(FILE* f, AppContext* context){
     char temp[MAX_LEN];

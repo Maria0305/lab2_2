@@ -41,7 +41,7 @@ char* MainWindow::qstringToCharArray(QString qstr){
 
 void MainWindow::showData(){
     QString regionName = ui->regionLineEdit->text();
-    if (regionName == "")
+    if (regionName == "" && context->fileName != NULL)
         errorBox(NoRegionChoosen);
     ui->tableWidget->setColumnCount(context->columns);
     QStringList qColumns = convertRowToQStringList(context->titles, context);
@@ -94,6 +94,9 @@ void MainWindow::errorBox(ErrorType error){
     case NoRegionChoosen:
         QMessageBox::warning(this, "ERROR", "Регион не выбран");
         break;
+    case NoColumnChoosen:
+        QMessageBox::warning(this, "ERROR", "Колонка не выбранa");
+        break;
     case NoDataForThisRegion:
         QMessageBox::warning(this, "ERROR", "Нет данных для выбранного региона");
         context->fileOk = false;
@@ -133,7 +136,10 @@ void MainWindow::onCalculateButtonClicked(){
             errorBox(entryPoint(Calculate, context));
         }
         else
-            errorBox(WrongColumnInput);
+            if (ui->fieldLineEdit->text().isEmpty())
+                errorBox(NoColumnChoosen);
+            else
+                errorBox(WrongColumnInput);
     }
 }
 

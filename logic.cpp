@@ -47,14 +47,14 @@ ErrorType load(AppContext* context){
             return Unreadfile;
         else {
             char ***data = (char***)malloc((context->rows - 1) * sizeof(char**));
-            int l = 0; //для пропуска пустых строк
+            int l = 0; //для пропуска "пустых" строк
             for (int i = 0; i < context->rows - 1; i++){
                 data[i - l] = strSplit(tempData[i+1], context, ',');
                 if (data[i - l] == NULL)
                     l++;
             }
             (context->rows)--; //минус названия колонок
-            context->rows -= l; //минус пустные строки
+            context->rows -= l; //минус "пустные" строки
             char **titles = strSplit(tempData[0], context, ',');
             clean2DArray(tempData, context->rows);
             context->data = data;

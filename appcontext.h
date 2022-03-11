@@ -19,6 +19,7 @@ struct AppContext{
 enum ErrorType{
     Nofilechoosen,
     NoRegionChoosen,
+    NoColumnChoosen,
     WrongColumnInput,
     Unreadfile,
     Initial,
