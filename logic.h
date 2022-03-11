@@ -12,11 +12,11 @@ float findMin(float*, int);
 float findMed(float*, int);
 
 //---------------------------------------------
-ErrorType clean2(AppContext*);
-ErrorType load2(AppContext*);
-ErrorType calculate2(AppContext*);
-ErrorType init2(AppContext*);
-ErrorType initMetrics2(AppContext*);
+ErrorType clean(AppContext*);
+ErrorType load(AppContext*);
+ErrorType calculate(AppContext*);
+ErrorType init(AppContext*);
+ErrorType initMetrics(AppContext*);
 
 
 

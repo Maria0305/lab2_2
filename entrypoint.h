@@ -12,6 +12,6 @@ enum Operation{
     Metrics,
 };
 
-ErrorType entryPoint2(Operation, AppContext*);
+ErrorType entryPoint(Operation, AppContext*);
 
 #endif // ENTRYPOINT_H

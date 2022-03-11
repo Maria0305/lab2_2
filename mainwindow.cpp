@@ -108,17 +108,17 @@ void MainWindow::errorBox(ErrorType error){
 }
 
 void MainWindow::init(){
-    errorBox(entryPoint2(Initialization, context));
-    errorBox(entryPoint2(Metrics, context));
+    errorBox(entryPoint(Initialization, context));
+    errorBox(entryPoint(Metrics, context));
 }
 
 void MainWindow::onLoadButtonClicked(){
     context->fileOk = true;
-    errorBox(entryPoint2(Load, context));
+    errorBox(entryPoint(Load, context));
 }
 
 void MainWindow::onCalculateButtonClicked(){
-    errorBox(entryPoint2(Metrics, context));
+    errorBox(entryPoint(Metrics, context));
     onLoadButtonClicked();
     if (context->fileOk) {
         context->fieldNum = ui->fieldLineEdit->text().toInt() - 1;
@@ -130,7 +130,7 @@ void MainWindow::onCalculateButtonClicked(){
                 }
             context->values = values;
             context->counter = ui->tableWidget->rowCount();
-            errorBox(entryPoint2(Calculate, context));
+            errorBox(entryPoint(Calculate, context));
         }
         else
             errorBox(WrongColumnInput);
@@ -138,6 +138,6 @@ void MainWindow::onCalculateButtonClicked(){
 }
 
 void MainWindow::cleanMemory() {
-    errorBox(entryPoint2(Clean, context));
+    errorBox(entryPoint(Clean, context));
     free(context);
 }

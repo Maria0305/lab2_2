@@ -1,22 +1,22 @@
 #include "entrypoint.h"
 #include <iostream>
 
-ErrorType entryPoint2(Operation operation, AppContext* context){
+ErrorType entryPoint(Operation operation, AppContext* context){
     switch(operation){
     case Clean:
-        return (clean2(context));
+        return (clean(context));
         break;
     case Load:
-        return (load2(context));
+        return (load(context));
         break;
     case Calculate:
-        return (calculate2(context));
+        return (calculate(context));
         break;
     case Initialization:
-        return (init2(context));
+        return (init(context));
         break;
     case Metrics:
-        return (initMetrics2(context));
+        return (initMetrics(context));
         break;
     }
     return Correct;

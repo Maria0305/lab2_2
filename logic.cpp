@@ -25,7 +25,7 @@ float findMed(float* values, int counter) {
 
 //--------------------------------------------------------
 
-ErrorType clean2(AppContext* context){
+ErrorType clean(AppContext* context){
     if (context->data)
         clean3DArray(context->data, context->columns, context->rows);
     if (context->titles)
@@ -37,7 +37,7 @@ ErrorType clean2(AppContext* context){
     return Correct;
 }
 
-ErrorType load2(AppContext* context){
+ErrorType load(AppContext* context){
     if (!context->fileName)
         return Nofilechoosen;
     FILE* f = fopen(context->fileName, "r");
@@ -66,7 +66,7 @@ ErrorType load2(AppContext* context){
         return Unreadfile;
 }
 
-ErrorType calculate2(AppContext* context){
+ErrorType calculate(AppContext* context){
     if (context->counter == 0)
         return NoDataForThisRegion;
     context->max = findMax(context->values, context->counter);
@@ -75,7 +75,7 @@ ErrorType calculate2(AppContext* context){
     return Correct;
 }
 
-ErrorType init2(AppContext* context) {
+ErrorType init(AppContext* context) {
     context->fileName = NULL;
     context->data = NULL;
     context->titles = NULL;
@@ -84,7 +84,7 @@ ErrorType init2(AppContext* context) {
     return Initial;
 }
 
-ErrorType initMetrics2(AppContext* context) {
+ErrorType initMetrics(AppContext* context) {
     context->max = 0;
     context->med = 0;
     context->min = 0;
