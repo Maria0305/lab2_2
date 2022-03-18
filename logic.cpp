@@ -34,7 +34,7 @@ ErrorType clean(AppContext* context){
         free(context->fileName);
     if (context->values)
         free(context->values);
-    return Correct;
+    return Initial;
 }
 
 ErrorType load(AppContext* context){

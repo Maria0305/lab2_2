@@ -25,6 +25,7 @@ AppContext* MainWindow::allocateMemory(){
 }
 
 void MainWindow::onOpenButtonClicked(){
+    init();
     QString fileName = QFileDialog::getOpenFileName(this, "Choose file", "C://", "CSV file (*.csv)");
     ui->fileLabel->setText(fileName);
     context->fileName = qstringToCharArray(fileName);
@@ -116,6 +117,8 @@ void MainWindow::init(){
 }
 
 void MainWindow::onLoadButtonClicked(){
+    //init();
+    //context->fileName = qstringToCharArray(fileName);
     context->fileOk = true;
     errorBox(entryPoint(Load, context));
 }
