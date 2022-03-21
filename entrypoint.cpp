@@ -1,5 +1,4 @@
 #include "entrypoint.h"
-#include <iostream>
 
 ErrorType entryPoint(Operation operation, AppContext* context){
     switch(operation){

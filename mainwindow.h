@@ -4,6 +4,9 @@
 #include <QMainWindow>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QPainter>
+#include "entrypoint.h"
+#include "drawing.h"
 #include "appcontext.h"
 #include "entrypoint.h"
 
@@ -28,10 +31,13 @@ private:
     void onOpenButtonClicked();
     void onLoadButtonClicked();
     void onCalculateButtonClicked();
+    ErrorType getDataFromTable();
+    void drawGraf();
     void errorBox(ErrorType);
     void init();
     void cleanMemory();
     void showData();
     void showMetrics();
+    bool checkNum(QString);
 };
 #endif // MAINWINDOW_H

@@ -23,6 +23,8 @@ char** readFile(FILE* f, AppContext* context){
 
 bool checkFile(char** tempData, AppContext* context){
     int number = charNum(tempData[0], ',');
+    if (number == 0)
+        return false;
     for(int i = 1; i < context->rows; i++)
         if (charNum(tempData[i], ',') != number)
             return false;

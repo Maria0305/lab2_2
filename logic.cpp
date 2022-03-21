@@ -23,6 +23,23 @@ float findMed(float* values, int counter) {
     return (sum / counter);
 }
 
+float findMaxMod(float* values, int counter){
+    float maxMod = values[0];
+    for (int i = 0; i < counter; i++)
+        if (abs(values[i]) > maxMod)
+            maxMod = abs(values[i]);
+    return maxMod;
+}
+
+void sortArray(float* arr, int counter){
+    for (int i = 0; i < counter - 1; i++)
+        for (int j = i + 1; j < counter; j++)
+            if (arr[i] > arr[j]) {
+                float temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+}
 //--------------------------------------------------------
 
 ErrorType clean(AppContext* context){
@@ -32,8 +49,8 @@ ErrorType clean(AppContext* context){
         clean2DArray(context->titles, context->columns);
     if  (context->fileName)
         free(context->fileName);
-    if (context->values)
-        free(context->values);
+    if (context->dataForCalculating.values)
+        free(context->dataForCalculating.values);
     return Initial;
 }
 
@@ -59,6 +76,8 @@ ErrorType load(AppContext* context){
             clean2DArray(tempData, context->rows);
             context->data = data;
             context->titles = titles;
+            if (context->titles == NULL)
+                return Unreadfile;
             return Correct;
         }
     }
@@ -67,11 +86,12 @@ ErrorType load(AppContext* context){
 }
 
 ErrorType calculate(AppContext* context){
-    if (context->counter == 0)
+    if (context->dataForCalculating.counter == 0)
         return NoDataForThisRegion;
-    context->max = findMax(context->values, context->counter);
-    context->min = findMin(context->values, context->counter);
-    context->med = findMed(context->values, context->counter);
+    context->metrics.max = findMax(context->dataForCalculating.values, context->dataForCalculating.counter);
+    context->metrics.min = findMin(context->dataForCalculating.values, context->dataForCalculating.counter);
+    context->metrics.med = findMed(context->dataForCalculating.values, context->dataForCalculating.counter);
+    context->metrics.maxMod = findMaxMod(context->dataForCalculating.values, context->dataForCalculating.counter);
     return Correct;
 }
 
@@ -79,15 +99,22 @@ ErrorType init(AppContext* context) {
     context->fileName = NULL;
     context->data = NULL;
     context->titles = NULL;
-    context->values = NULL;
+    context->dataForCalculating.values = NULL;
     context->columns = 0;
     return Initial;
 }
 
 ErrorType initMetrics(AppContext* context) {
-    context->max = 0;
-    context->med = 0;
-    context->min = 0;
+    context->metrics.max = 0;
+    context->metrics.med = 0;
+    context->metrics.min = 0;
     return MetricsInit;
+}
+
+int scaleMetrics(AppContext* context, int size) {
+    int scale = (size / 2 - 20) / context->metrics.maxMod;
+    for(int i = 0; i < context->dataForCalculating.counter; i++)
+        context->dataForCalculating.values[i] *= scale;
+    return scale;
 }
 

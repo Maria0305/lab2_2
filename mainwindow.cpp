@@ -1,7 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <iostream>
-#include "entrypoint.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -66,9 +64,9 @@ void MainWindow::showData(){
 }
 
 void MainWindow::showMetrics(){
-    ui->maxLabel->setText(QString::number(context->max, 'f', 2));
-    ui->minLabel->setText(QString::number(context->min, 'f', 2));
-    ui->mediumLabel->setText(QString::number(context->med, 'f', 2));
+    ui->maxLabel->setText(QString::number(context->metrics.max, 'f', 2));
+    ui->minLabel->setText(QString::number(context->metrics.min, 'f', 2));
+    ui->mediumLabel->setText(QString::number(context->metrics.med, 'f', 2));
 }
 
 QStringList MainWindow::convertRowToQStringList(char** row, AppContext* context){
@@ -117,8 +115,6 @@ void MainWindow::init(){
 }
 
 void MainWindow::onLoadButtonClicked(){
-    //init();
-    //context->fileName = qstringToCharArray(fileName);
     context->fileOk = true;
     errorBox(entryPoint(Load, context));
 }
@@ -127,16 +123,11 @@ void MainWindow::onCalculateButtonClicked(){
     errorBox(entryPoint(Metrics, context));
     onLoadButtonClicked();
     if (context->fileOk) {
-        context->fieldNum = ui->fieldLineEdit->text().toInt() - 1;
-        if (context->fieldNum < context->columns && context->fieldNum > 1) {
-            float* values = (float*) malloc ( (ui->tableWidget->rowCount()) * sizeof(float));
-            for (int i = 0; i < ui->tableWidget->rowCount(); i++){
-                    QTableWidgetItem* item = ui->tableWidget->item(i, context->fieldNum);
-                    values[i] = item->text().toFloat();
-                }
-            context->values = values;
-            context->counter = ui->tableWidget->rowCount();
+        context->dataForCalculating.fieldNum = ui->fieldLineEdit->text().toInt() - 1;
+        if (context->dataForCalculating.fieldNum < context->columns && context->dataForCalculating.fieldNum > 1) {
+            errorBox(getDataFromTable());
             errorBox(entryPoint(Calculate, context));
+            drawGraf();
         }
         else
             if (ui->fieldLineEdit->text().isEmpty())
@@ -144,9 +135,38 @@ void MainWindow::onCalculateButtonClicked(){
             else
                 errorBox(WrongColumnInput);
     }
+
 }
+
+
+bool checkNum(QString qstr){
+    for( int i = 0; i < qstr.length(); i++)
+        if (!qstr[i].isNumber())
+            return false;
+    return true;
+}
+
+ErrorType MainWindow::getDataFromTable(){
+    float* values = (float*) malloc ( (ui->tableWidget->rowCount()) * sizeof(float));
+    for (int i = 0; i < ui->tableWidget->rowCount(); i++){
+            QTableWidgetItem* item = ui->tableWidget->item(i, context->dataForCalculating.fieldNum);
+            values[i] = item->text().toFloat();
+        }
+    context->dataForCalculating.values = values;
+    context->dataForCalculating.counter = ui->tableWidget->rowCount();
+    return Correct;
+}
+
+void MainWindow::drawGraf(){
+    QPixmap *pix = new QPixmap(780, 880);
+    drawOrigins(context, pix);
+    drawGrafic(context, pix);
+    ui->drawingLabel->setPixmap(*pix);
+}
+
 
 void MainWindow::cleanMemory() {
     errorBox(entryPoint(Clean, context));
     free(context);
 }
+

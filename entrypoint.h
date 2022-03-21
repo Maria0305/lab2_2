@@ -3,6 +3,7 @@
 
 #include "appcontext.h"
 #include "logic.h"
+#include "drawing.h"
 
 enum Operation{
     Clean,
