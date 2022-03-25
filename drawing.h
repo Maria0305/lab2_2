@@ -1,4 +1,4 @@
-#ifndef DRAWING_H
+/*#ifndef DRAWING_H
 #define DRAWING_H
 
 #include <QPainter>
@@ -21,4 +21,4 @@ void drawOrigins(AppContext*, QPixmap*);
 void drawGrafic(AppContext*, QPixmap*);
 
 
-#endif // DRAWING_H
+#endif // DRAWING_H*/

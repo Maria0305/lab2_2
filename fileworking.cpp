@@ -16,7 +16,7 @@ char** readFile(FILE* f, AppContext* context){
         strcpy(data[count], temp);
         count++;
     }
-    context->rows = count;
+    context->ySize = count;
     fclose(f);
     return data;
 }
@@ -25,7 +25,7 @@ bool checkFile(char** tempData, AppContext* context){
     int number = charNum(tempData[0], ',');
     if (number == 0)
         return false;
-    for(int i = 1; i < context->rows; i++)
+    for(int i = 1; i < context->ySize; i++)
         if (charNum(tempData[i], ',') != number)
             return false;
     return true;

@@ -17,8 +17,8 @@ char** strSplit(char* str, AppContext* context, const char separator) {
         }
         temp++;
     }
-    if (context->columns == 0)
-        context->columns = count + 1;
+    if (context->xSize == 0)
+        context->xSize = count + 1;
     count += lastIn < (str + strlen(str) - 1);
     count++;
     data = (char**)malloc(sizeof(char*) * count);
@@ -31,7 +31,7 @@ char** strSplit(char* str, AppContext* context, const char separator) {
             *(data + i++) = strdup(token);
             token = strtok(0, sepArray);
         }
-        if (check < context->columns) {
+        if (check < context->xSize) {
             clean2DArray(data, check);
             return NULL;
         }

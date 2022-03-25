@@ -1,4 +1,4 @@
-#include "drawing.h"
+/*#include "drawing.h"
 
 void drawOrigins(AppContext* context, QPixmap* pix){
     QPainter painter(pix);
@@ -39,4 +39,4 @@ void drawGrafic(AppContext* context, QPixmap* pix){
             painter.setPen(pen);
         painter.drawPoint(i*step + 20, Y / 2 - context->dataForCalculating.values[i]);
     }
-}
+}*/

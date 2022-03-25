@@ -30,14 +30,9 @@ private:
     char* qstringToCharArray(QString);
     void onOpenButtonClicked();
     void onLoadButtonClicked();
-    void onCalculateButtonClicked();
-    ErrorType getDataFromTable();
-    void drawGraf();
     void errorBox(ErrorType);
     void init();
     void cleanMemory();
     void showData();
-    void showMetrics();
-    bool checkNum(QString);
 };
 #endif // MAINWINDOW_H

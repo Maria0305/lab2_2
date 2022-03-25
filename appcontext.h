@@ -16,24 +16,16 @@ typedef struct {
 
 struct AppContext{
     char*** data;
-    char** titles;
     char* fileName;
-    int rows;
-    int columns;
+    int ySize;
+    int xSize;
     bool fileOk;
-    MetricsData metrics;
-    DataFromScreen dataForCalculating;
 };
 
 enum ErrorType{
     Nofilechoosen,
-    NoRegionChoosen,
-    NoColumnChoosen,
-    WrongColumnInput,
     Unreadfile,
     Initial,
-    MetricsInit,
-    NoDataForThisRegion,
     Correct,
 };
 

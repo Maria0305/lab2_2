@@ -8,9 +8,7 @@
 enum Operation{
     Clean,
     Load,
-    Calculate,
     Initialization,
-    Metrics,
 };
 
 ErrorType entryPoint(Operation, AppContext*);
