@@ -1,5 +1,4 @@
 #include "stringworking.h"
-#include <iostream>
 
 //Функция разбития строки на массив слов
 char** strSplit(char* str, AppContext* context, const char separator) {

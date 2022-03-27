@@ -26,13 +26,19 @@ private:
     Ui::MainWindow *ui;
     AppContext* context;
     AppContext* allocateMemory();
-    QStringList convertRowToQStringList(char**, AppContext*);
     char* qstringToCharArray(QString);
     void onOpenButtonClicked();
     void onLoadButtonClicked();
+    void onInitButtonClicked();
+    void setInitParams();
+    void getGrafParams();
+    void getOffsetParams();
+    void getRolateParams();
+    void getScalesParams();
+    void getRangeParams();
     void errorBox(ErrorType);
     void init();
     void cleanMemory();
-    void showData();
+    void draw();
 };
 #endif // MAINWINDOW_H

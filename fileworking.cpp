@@ -29,5 +29,4 @@ bool checkFile(char** tempData, AppContext* context){
         if (charNum(tempData[i], ',') != number)
             return false;
     return true;
-
 }

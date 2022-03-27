@@ -1,4 +1,4 @@
-/*#ifndef DRAWING_H
+#ifndef DRAWING_H
 #define DRAWING_H
 
 #include <QPainter>
@@ -12,13 +12,10 @@
 
 //толщина пера для элементов графика
 
-#define ORIGIN_WIDTH 1
-#define POINT_WIDTH 7
-#define LINE_WIDTH 3
-#define METRICS_POINT_WIDTH 9
+#define LINE_WIDTH 1
 
-void drawOrigins(AppContext*, QPixmap*);
 void drawGrafic(AppContext*, QPixmap*);
+void drawSegment(AppContext*, QPixmap*);
 
 
-#endif // DRAWING_H*/
+#endif // DRAWING_H
