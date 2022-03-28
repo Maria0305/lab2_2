@@ -7,6 +7,8 @@ ErrorType clean(AppContext* context){
         free(context->fileName);
     if (context->intData)
         clean2DArrayInt(context->intData, context->ySize);
+    if (context->fileNamePrevious)
+        free(context->fileNamePrevious);
     return Initial;
 }
 
@@ -39,7 +41,6 @@ ErrorType load(AppContext* context){
 }
 
 ErrorType init(AppContext* context) {
-    context->fileName = NULL;
     context->data = NULL;
     context->xSize = 0;
     context->offsets.offsetX = 0;

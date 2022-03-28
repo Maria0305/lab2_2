@@ -24,10 +24,13 @@ AppContext* MainWindow::allocateMemory(){
 }
 
 void MainWindow::onOpenButtonClicked(){
+    context->fileNamePrevious = context->fileName;
     init();
+    context->fileName = context->fileNamePrevious;
     QString fileName = QFileDialog::getOpenFileName(this, "Choose file", "C://", "CSV file (*.csv)");
-    ui->fileLabel->setText(fileName);
-    context->fileName = qstringToCharArray(fileName);
+    if (fileName != "")
+        context->fileName = qstringToCharArray(fileName);
+    ui->fileLabel->setText(context->fileName);
 }
 
 char* MainWindow::qstringToCharArray(QString qstr){
@@ -50,7 +53,7 @@ void MainWindow::errorBox(ErrorType error){
         context->fileOk = false;
         break;
     case NoDataInFile:
-        QMessageBox::warning(this, "ERROR", "Нет данных в фвйле");
+        QMessageBox::warning(this, "ERROR", "Нет данных в файле");
         break;
     default:
         break;
@@ -58,6 +61,7 @@ void MainWindow::errorBox(ErrorType error){
 }
 
 void MainWindow::init(){
+    context->fileName = NULL;
     errorBox(entryPoint(Initialization, context));
 }
 

@@ -39,6 +39,7 @@ struct AppContext{
     char*** data;
     int** intData;
     char* fileName;
+    char* fileNamePrevious;
     Coordinates coordinates;
     Coordinates nextPointCoordinates;
     GrafCoordinates grafCoordinates;
