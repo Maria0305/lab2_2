@@ -11,6 +11,12 @@ ErrorType entryPoint(Operation operation, AppContext* context){
     case Initialization:
         return (init(context));
         break;
+    case Convert:
+        return (convertCoordinates(context));
+        break;
+    case PrepareData:
+        return (prepareData(context));
+        break;
     }
     return Correct;
 }

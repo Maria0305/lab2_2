@@ -9,6 +9,8 @@ enum Operation{
     Clean,
     Load,
     Initialization,
+    Convert,
+    PrepareData,
 };
 
 ErrorType entryPoint(Operation, AppContext*);

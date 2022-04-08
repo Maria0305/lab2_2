@@ -5,52 +5,47 @@ typedef struct {
    int x;
    int y;
    int z;
-} Coordinates;
+} Coordinate;
 
 typedef struct {
     int x;
     int y;
-} GrafCoordinates;
+} GrafCoordinate;
 
 typedef struct {
-   int offsetX;
-   int offsetY;
-   int offsetZ;
+   int x;
+   int y;
+   int z;
 } Offsets;
 
 typedef struct {
-    float radiansX;
-    float radiansY;
-    float radiansZ;
+    float x;
+    float y;
+    float z;
 } Radians;
 
 typedef struct {
-    int upLimit;
-    int downLimit;
+    int from;
+    int to;
 } Range;
 
 typedef struct {
-    int scaleX;
-    int scaleY;
-    int scaleZ;
+    int x;
+    int y;
+    int z;
 } Scales;
 
 struct AppContext{
     char*** data;
-    int** intData;
     char* fileName;
-    char* fileNamePrevious;
-    Coordinates coordinates;
-    Coordinates nextPointCoordinates;
-    GrafCoordinates grafCoordinates;
-    GrafCoordinates nextPointGrafCoordinates;
+    Coordinate** coordinates;
+    GrafCoordinate** grafCoordinates;
     Offsets offsets;
     Scales scales;
     Radians radians;
     Range range;
     int ySize;
     int xSize;
-    bool fileOk;
 };
 
 enum ErrorType{

@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <iostream>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -24,13 +23,12 @@ AppContext* MainWindow::allocateMemory(){
 }
 
 void MainWindow::onOpenButtonClicked(){
-    context->fileNamePrevious = context->fileName;
-    init();
-    context->fileName = context->fileNamePrevious;
+    entryPoint(Initialization, context);
     QString fileName = QFileDialog::getOpenFileName(this, "Choose file", "C://", "CSV file (*.csv)");
-    if (fileName != "")
+    if (fileName != "") {
         context->fileName = qstringToCharArray(fileName);
-    ui->fileLabel->setText(context->fileName);
+        ui->fileLabel->setText(context->fileName);
+    }
 }
 
 char* MainWindow::qstringToCharArray(QString qstr){
@@ -46,11 +44,9 @@ void MainWindow::errorBox(ErrorType error){
     switch(error){
     case Unreadfile:
         QMessageBox::warning(this, "ERROR", "Невозможно прочитать файл");
-        context->fileOk = false;
         break;
     case Nofilechoosen:
         QMessageBox::warning(this, "ERROR", "Файл не выбран");
-        context->fileOk = false;
         break;
     case NoDataInFile:
         QMessageBox::warning(this, "ERROR", "Нет данных в файле");
@@ -66,29 +62,32 @@ void MainWindow::init(){
 }
 
 void MainWindow::onLoadButtonClicked(){
-    context->fileOk = true;
-    errorBox(entryPoint(Load, context));
-    if (context->fileOk)
-        draw();
+    ErrorType fileNeOk = entryPoint(Load, context);
+    if (fileNeOk == Unreadfile || fileNeOk == Nofilechoosen) {
+        errorBox(fileNeOk);
+        return;
+    }
+    draw();
 }
 
 void MainWindow::onInitButtonClicked(){
     errorBox(entryPoint(Initialization, context));
     setInitParams();
+    onLoadButtonClicked();
 }
 
 void MainWindow::setInitParams(){
-    ui->moveXLine->setText(QString::number(context->offsets.offsetX));
-    ui->scaleLineX->setText(QString::number(context->scales.scaleX));
-    ui->rolateXLine->setText(QString::number(context->radians.radiansX));
-    ui->moveYLine->setText(QString::number(context->offsets.offsetY));
-    ui->scaleLineY->setText(QString::number(context->scales.scaleY));
-    ui->rolateYLine->setText(QString::number(context->radians.radiansY));
-    ui->moveZLine->setText(QString::number(context->offsets.offsetZ));
-    ui->scaleLineZ->setText(QString::number(context->scales.scaleZ));
-    ui->rolateZLine->setText(QString::number(context->radians.radiansZ));
-    ui->rangeMinLabel->setText(QString::number(context->range.downLimit));
-    ui->rangeMaxLabel->setText(QString::number(context->range.upLimit));
+    ui->moveXLine->setText(QString::number(context->offsets.x));
+    ui->scaleLineX->setText(QString::number(context->scales.x));
+    ui->rolateXLine->setText(QString::number(context->radians.x));
+    ui->moveYLine->setText(QString::number(context->offsets.y));
+    ui->scaleLineY->setText(QString::number(context->scales.y));
+    ui->rolateYLine->setText(QString::number(context->radians.y));
+    ui->moveZLine->setText(QString::number(context->offsets.z));
+    ui->scaleLineZ->setText(QString::number(context->scales.z));
+    ui->rolateZLine->setText(QString::number(context->radians.z));
+    ui->rangeMinLabel->setText(QString::number(context->range.to));
+    ui->rangeMaxLabel->setText(QString::number(context->range.from));
 }
 
 void MainWindow::cleanMemory() {
@@ -104,26 +103,26 @@ void MainWindow::draw() {
 }
 
 void MainWindow::getOffsetParams() {
-    context->offsets.offsetX = ui->moveXLine->text().toInt();
-    context->offsets.offsetY = ui->moveYLine->text().toInt();
-    context->offsets.offsetZ = ui->moveZLine->text().toInt();
+    context->offsets.x = ui->moveXLine->text().toInt();
+    context->offsets.y = ui->moveYLine->text().toInt();
+    context->offsets.z = ui->moveZLine->text().toInt();
 }
 
 void MainWindow::getRolateParams() {
-    context->radians.radiansX = ui->rolateXLine->text().toInt();
-    context->radians.radiansY = ui->rolateYLine->text().toInt();
-    context->radians.radiansZ = ui->rolateZLine->text().toInt();
+    context->radians.x = ui->rolateXLine->text().toInt();
+    context->radians.y = ui->rolateYLine->text().toInt();
+    context->radians.z = ui->rolateZLine->text().toInt();
 }
 
 void MainWindow::getScalesParams() {
-   context->scales.scaleX = ui->scaleLineX->text().toInt();
-   context->scales.scaleY = ui->scaleLineY->text().toInt();
-   context->scales.scaleZ = ui->scaleLineZ->text().toInt();
+   context->scales.x = ui->scaleLineX->text().toInt();
+   context->scales.y = ui->scaleLineY->text().toInt();
+   context->scales.z = ui->scaleLineZ->text().toInt();
 }
 
 void MainWindow::getRangeParams() {
-    context->range.downLimit = ui->rangeMinLabel->text().toInt();
-    context->range.upLimit = ui->rangeMaxLabel->text().toInt();
+    context->range.to = ui->rangeMinLabel->text().toInt();
+    context->range.from = ui->rangeMaxLabel->text().toInt();
 }
 
 void MainWindow::getGrafParams() {

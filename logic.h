@@ -15,18 +15,17 @@
 ErrorType clean(AppContext*);
 ErrorType load(AppContext*);
 ErrorType init(AppContext*);
+ErrorType convertCoordinates(AppContext*);
+ErrorType prepareData(AppContext*);
 //---------------------------------------------
-void moveOx(AppContext*);
-void moveOy(AppContext*);
+void moveOx(Coordinate, GrafCoordinate*);
+void moveOy(Coordinate, GrafCoordinate*);
 //---------------------------------------------
-void rolateOx(AppContext*);
-void rolateOy(AppContext*);
-void rolateOz(AppContext*);
+void rolateOx(AppContext*, Coordinate*);
+void rolateOy(AppContext*, Coordinate*);
+void rolateOz(AppContext*, Coordinate*);
 //---------------------------------------------
-void convertCoordinates(AppContext*);
-void addOffsets(AppContext*);
-void getOxCoordinates(AppContext*, int, int);
-void getOyCoordinates(AppContext*, int, int);
+void addOffsets(AppContext*, Coordinate*);
 //---------------------------------------------
 void converCharArrayToIntArray(AppContext*);
 void convertDegreesToRadians(AppContext*);

@@ -3,6 +3,7 @@
 
 #include <QPainter>
 #include "appcontext.h"
+#include "entrypoint.h"
 #include "logic.h"
 
 //размеры графика
